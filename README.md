@@ -1,6 +1,16 @@
+<div align="center">
+
+<img src="lazarus.png" alt="Lazarus — a neon green phoenix made of ethernet cables and Wi-Fi signals, rising from a graveyard of dead routers" width="400">
+
 # Lazarus Watchdog
 
-A network self-healing watchdog script for Raspberry Pi. Monitors WAN connectivity and automatically power-cycles networking equipment via a Shelly smart plug when outages are detected.
+**Your network dies. Lazarus brings it back.**
+
+A self-healing watchdog for Raspberry Pi that monitors your internet connection and automatically power-cycles networking equipment via a Shelly smart plug when outages are detected.
+
+---
+
+</div>
 
 ## How It Works
 
