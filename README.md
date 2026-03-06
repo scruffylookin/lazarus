@@ -37,7 +37,7 @@ A network self-healing watchdog script for Raspberry Pi. Monitors WAN connectivi
    pip install requests
    ```
 
-3. Edit `lazarus_watchdog.py` and set your `DISCORD_WEBHOOK_URL`
+3. [Create a Discord webhook](#discord-webhook-setup) and paste the URL into `lazarus_watchdog.py` as the `DISCORD_WEBHOOK_URL` value
 
 4. Create the log file:
    ```bash
@@ -70,6 +70,56 @@ A network self-healing watchdog script for Raspberry Pi. Monitors WAN connectivi
    sudo systemctl enable lazarus.service
    sudo systemctl start lazarus.service
    ```
+
+## Discord Webhook Setup
+
+1. Open Discord and go to the channel where you want Lazarus alerts
+2. Click the gear icon to open **Channel Settings**
+3. Go to **Integrations** > **Webhooks**
+4. Click **New Webhook**
+5. Give it a name (e.g. "Lazarus") and click **Copy Webhook URL**
+6. Paste the URL into `lazarus_watchdog.py`:
+   ```python
+   DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/your-webhook-url-here"
+   ```
+
+### Bonus: Give Lazarus a Personality
+
+Why settle for a boring bot name when your watchdog rises from the dead to resurrect your network? Lean into the theme.
+
+**Custom name and avatar in Discord:**
+
+In the webhook settings (step 4 above), you can set a custom name and upload an avatar image. Some ideas:
+
+- **Name:** `LAZARUS` / `The Resurrector` / `Network Necromancer`
+- **Avatar:** A phoenix, a skull with glowing Wi-Fi eyes, or a zombie hand gripping an ethernet cable
+
+**Custom name and avatar per message (overrides webhook defaults):**
+
+You can also set the name and avatar dynamically from the script itself. In `lazarus_watchdog.py`, modify the `flush_discord_queue` payload:
+
+```python
+payload = {
+    "username": "LAZARUS",
+    "avatar_url": "https://i.imgur.com/YOUR_IMAGE.png",
+    "content": "⚡ **Lazarus Status Update:**\n" + "\n".join(queue)
+}
+```
+
+This overrides the webhook's default name and avatar on a per-message basis, so you can even get creative with different avatars for different states:
+
+```python
+# Calm — everything is fine
+avatar = "https://i.imgur.com/sleeping-phoenix.png"
+
+# Reboot triggered — the resurrection
+avatar = "https://i.imgur.com/phoenix-rising.png"
+
+# Rate limit hit — standing down
+avatar = "https://i.imgur.com/exhausted-phoenix.png"
+```
+
+**Pro tip:** Use an AI image generator to create a custom Lazarus mascot. Prompt idea: *"A pixel-art phoenix made of ethernet cables and Wi-Fi signals rising from a pile of dead routers, dark background, glowing neon green"* — upload that as your webhook avatar and your Discord alerts will go from functional to legendary.
 
 ## Configuration
 
