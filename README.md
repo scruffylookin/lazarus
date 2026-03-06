@@ -27,38 +27,49 @@ A network self-healing watchdog script for Raspberry Pi. Monitors WAN connectivi
 
 ## Setup
 
-1. Clone the repo to your Raspberry Pi
+1. Clone the repo to your Raspberry Pi:
+   ```bash
+   git clone https://github.com/scruffylookin/lazarus.git /home/pi/lazarus
+   ```
+
 2. Install dependencies:
    ```bash
    pip install requests
    ```
+
 3. Edit `lazarus_watchdog.py` and set your `DISCORD_WEBHOOK_URL`
-4. Run the script:
+
+4. Create the log file:
    ```bash
-   python3 lazarus_watchdog.py
+   sudo touch /var/log/lazarus_watchdog.log && sudo chmod 666 /var/log/lazarus_watchdog.log
    ```
 
-### Run as a systemd Service
+5. Create the systemd service:
+   ```bash
+   sudo nano /etc/systemd/system/lazarus.service
+   ```
 
-```ini
-# /etc/systemd/system/lazarus.service
-[Unit]
-Description=Lazarus Watchdog
-After=network.target
+   Paste the following:
+   ```ini
+   [Unit]
+   Description=Lazarus Network Watchdog
+   After=network.target
 
-[Service]
-ExecStart=/usr/bin/python3 /home/pi/lazarus_watchdog.py
-Restart=always
-RestartSec=10
+   [Service]
+   ExecStart=/usr/bin/python3 /home/pi/lazarus_watchdog.py
+   Restart=always
+   User=pi
 
-[Install]
-WantedBy=multi-user.target
-```
+   [Install]
+   WantedBy=multi-user.target
+   ```
 
-```bash
-sudo systemctl enable lazarus
-sudo systemctl start lazarus
-```
+6. Enable and start the service:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable lazarus.service
+   sudo systemctl start lazarus.service
+   ```
 
 ## Configuration
 
