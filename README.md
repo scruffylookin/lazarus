@@ -30,11 +30,15 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
 - **Cooldown:** 5-minute wait after each reboot cycle
 - **Standdown:** 10-minute pause when rate limit is reached
 
+## Hardware
+
+- **Raspberry Pi** — Any model with network access (wired recommended so the Pi stays online when Wi-Fi goes down)
+- **[Shelly Plug US (Gen 4)](https://www.shelly.com/products/shelly-plug-us)** — Wi-Fi smart plug with a local HTTP API and built-in Auto ON timer. The plug sits between the wall outlet and your router/modem, giving Lazarus physical power control. The Auto ON timer is critical — it runs on the plug's local firmware and restores power even when the network is completely down. See [Shelly Configuration](shelly_config.md) for setup.
+
 ## Requirements
 
 - Python 3
 - `requests` library (`pip install requests`)
-- Shelly smart plug on the local network (with Auto ON timer configured — see [Shelly Configuration](shelly_config.md))
 - Discord webhook URL (for notifications)
 
 ## Setup
