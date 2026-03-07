@@ -19,8 +19,10 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
    - ASUS Router (`192.168.50.1`)
    - AT&T Gateway (`192.168.1.254`)
    - ISP/WAN outage
-3. Sends HTTP commands to a Shelly smart plug to power-cycle the equipment (off 10s, then on)
+3. Sends an **OFF** command to the Shelly smart plug — cutting power to the router and sawing off the branch it's sitting on. The Shelly's **Auto ON timer** (configured to 20s) handles restoration entirely on its own, no network needed.
 4. Queues Discord webhook notifications while offline, flushes them once connectivity is restored
+
+> **Why only OFF?** Once the Pi kills the router, the local network goes down with it. There's no way to send a follow-up "on" command. The Shelly's Auto ON timer runs on the plug's local firmware, so it will always restore power — even with zero network connectivity. See [Shelly Configuration](shelly_config.md) for setup details.
 
 ## Safety Features
 
@@ -32,7 +34,7 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
 
 - Python 3
 - `requests` library (`pip install requests`)
-- Shelly smart plug on the local network
+- Shelly smart plug on the local network (with Auto ON timer configured — see [Shelly Configuration](shelly_config.md))
 - Discord webhook URL (for notifications)
 
 ## Setup
