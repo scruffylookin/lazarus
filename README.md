@@ -16,8 +16,8 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
 
 1. Pings `8.8.8.8` and `1.1.1.1` every 60 seconds to check internet connectivity
 2. After 3 consecutive failures, runs diagnostics to identify the failure point:
-   - ASUS Router (`192.168.50.1`)
-   - AT&T Gateway (`192.168.1.254`)
+   - Local router unreachable
+   - ISP gateway unreachable
    - ISP/WAN outage
 3. Sends an **OFF** command to the Shelly smart plug — cutting power to the router and sawing off the branch it's sitting on. The Shelly's **Auto ON timer** (configured to 20s) handles restoration entirely on its own, no network needed.
 4. Queues Discord webhook notifications while offline, flushes them once connectivity is restored
