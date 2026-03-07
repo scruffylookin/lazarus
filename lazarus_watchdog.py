@@ -3,22 +3,10 @@ import time
 import requests
 import json
 from datetime import datetime
-
-# --- CONFIGURATION ---
-# Paste your Discord Webhook URL here
-DISCORD_WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL"
-
-SHELLY_IP = "192.168.50.110"
-ASUS_GATEWAY = "192.168.50.1"
-ATT_GATEWAY = "192.168.1.254"
-WAN_TARGETS = ["8.8.8.8", "1.1.1.1"]
-
-LOG_FILE = "/var/log/lazarus_watchdog.log"
-QUEUE_FILE = "/home/pi/lazarus_queue.json"
-
-REBOOT_LIMIT = 3
-LIMIT_WINDOW = 1800  # 30 minutes
-COOLDOWN = 300       # 5 minutes
+from config import (
+    DISCORD_WEBHOOK_URL, SHELLY_IP, ASUS_GATEWAY, ATT_GATEWAY,
+    WAN_TARGETS, LOG_FILE, QUEUE_FILE, REBOOT_LIMIT, LIMIT_WINDOW, COOLDOWN
+)
 
 def log_and_queue(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -97,9 +85,9 @@ def main():
             if consecutive_failures == 3:
                 # Diagnostics
                 if not ping(ASUS_GATEWAY):
-                    reason = "ASUS Router (192.168.50.1) Unreachable"
+                    reason = f"ASUS Router ({ASUS_GATEWAY}) Unreachable"
                 elif not ping(ATT_GATEWAY):
-                    reason = "AT&T Gateway (192.168.1.254) Unreachable"
+                    reason = f"AT&T Gateway ({ATT_GATEWAY}) Unreachable"
                 else:
                     reason = "ISP/WAN Outage"
                 

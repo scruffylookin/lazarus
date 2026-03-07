@@ -49,7 +49,12 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
    pip install requests
    ```
 
-3. [Create a Discord webhook](#discord-webhook-setup) and paste the URL into `lazarus_watchdog.py` as the `DISCORD_WEBHOOK_URL` value
+3. Copy the example config and fill in your values:
+   ```bash
+   cp config.example.py config.py
+   nano config.py
+   ```
+   Set your network IPs and [Discord webhook URL](#discord-webhook-setup). This file is gitignored and won't be committed.
 
 4. Create the log file:
    ```bash
@@ -90,7 +95,7 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
 3. Go to **Integrations** > **Webhooks**
 4. Click **New Webhook**
 5. Give it a name (e.g. "Lazarus") and click **Copy Webhook URL**
-6. Paste the URL into `lazarus_watchdog.py`:
+6. Paste the URL into `config.py`:
    ```python
    DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/your-webhook-url-here"
    ```
@@ -135,15 +140,18 @@ avatar = "https://i.imgur.com/exhausted-phoenix.png"
 
 ## Configuration
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `DISCORD_WEBHOOK_URL` | — | Your Discord webhook URL |
-| `SHELLY_IP` | `192.168.50.110` | Shelly smart plug IP |
-| `ASUS_GATEWAY` | `192.168.50.1` | ASUS router IP |
-| `ATT_GATEWAY` | `192.168.1.254` | AT&T gateway IP |
-| `REBOOT_LIMIT` | `3` | Max reboots per window |
-| `LIMIT_WINDOW` | `1800` | Rate limit window (seconds) |
-| `COOLDOWN` | `300` | Post-reboot cooldown (seconds) |
+All settings live in `config.py` (copied from `config.example.py`, gitignored).
+
+| Variable | Description |
+|----------|-------------|
+| `DISCORD_WEBHOOK_URL` | Your Discord webhook URL |
+| `SHELLY_IP` | Shelly smart plug IP address |
+| `ASUS_GATEWAY` | Local router IP address |
+| `ATT_GATEWAY` | ISP gateway IP address |
+| `WAN_TARGETS` | External IPs to ping for connectivity checks |
+| `REBOOT_LIMIT` | Max reboots per rate limit window (default: `3`) |
+| `LIMIT_WINDOW` | Rate limit window in seconds (default: `1800`) |
+| `COOLDOWN` | Post-reboot cooldown in seconds (default: `300`) |
 
 ## Logs
 
