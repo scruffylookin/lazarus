@@ -8,8 +8,8 @@ ASUS_GATEWAY = "192.168.x.x"
 ATT_GATEWAY = "192.168.x.x"
 WAN_TARGETS = ["8.8.8.8", "1.1.1.1"]
 
-LOG_FILE = "/var/log/lazarus_watchdog.log"
-QUEUE_FILE = "/home/pi/lazarus_queue.json"
+LOG_FILE = "lazarus.log"
+QUEUE_FILE = "lazarus_queue.json"
 
 REBOOT_LIMIT = 3
 LIMIT_WINDOW = 1800  # 30 minutes

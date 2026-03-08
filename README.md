@@ -60,12 +60,7 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
    ```
    Set your network IPs and [Discord webhook URL](#discord-webhook-setup). This file is gitignored and won't be committed.
 
-4. Create the log file:
-   ```bash
-   sudo touch /var/log/lazarus_watchdog.log && sudo chmod 666 /var/log/lazarus_watchdog.log
-   ```
-
-5. Create the systemd service:
+4. Create the systemd service:
    ```bash
    sudo nano /etc/systemd/system/lazarus.service
    ```
@@ -85,7 +80,7 @@ A self-healing watchdog for Raspberry Pi that monitors your internet connection 
    WantedBy=multi-user.target
    ```
 
-6. Enable and start the service:
+5. Enable and start the service:
    ```bash
    sudo systemctl daemon-reload
    sudo systemctl enable lazarus.service
@@ -159,5 +154,5 @@ All settings live in `config.py` (copied from `config.example.py`, gitignored).
 
 ## Logs
 
-- Local log: `/var/log/lazarus_watchdog.log`
+- Local log: `lazarus.log` (created automatically in the project directory)
 - Discord: Queued notifications sent when connectivity is restored
