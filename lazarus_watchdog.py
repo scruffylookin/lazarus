@@ -58,7 +58,7 @@ def trigger_lazarus(reason):
     try:
         # Send OFF only — the Shelly's Auto ON timer (20s) handles restoration.
         # Once power is cut, the network goes down and we can't send a follow-up command.
-        requests.post(f"http://{SHELLY_IP}/rpc/Switch.Set?id=0&on=false", timeout=5)
+        requests.get(f"http://{SHELLY_IP}/rpc/Switch.Set?id=0&on=false", timeout=5)
         return True
     except:
         log_and_queue("⚠️ Failed to reach Shelly Plug locally.")
